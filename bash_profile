@@ -1,3 +1,5 @@
+# -*- mode: sh -*-
+
 if [ -d $HOME/.bashrc ]; then
   source $HOME/.bashrc
 fi
