@@ -11,8 +11,9 @@
 
 (electric-pair-mode +1)
 
-(load-theme 'tango-dark)
-(enable-theme 'tango-dark)
+(require 'color-theme-tomorrow "/Users/wfarr/.emacs.d/color-theme-tomorrow.el")
+
+(load-theme 'tomorrow-night t)
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 
@@ -37,6 +38,7 @@
     json
     make-mode
     org
+    markdown-mode
     puppet-mode
     ruby-mode
     ))
