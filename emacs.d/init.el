@@ -32,6 +32,7 @@
     ack
     coffee-mode
     css-mode
+    diminish
     eldoc
     etags
     find-file-in-project
