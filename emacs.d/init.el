@@ -47,7 +47,10 @@
   (when (not (package-installed-p p))
     (package-install p)))
 
+(require 'ido)
+(require 'ido-ubiquitous)
 (ido-mode)
+(ido-ubiquitous-mode 1)
 (setq ido-enable-flex-matching t)
 
 (setq
