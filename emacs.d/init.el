@@ -107,6 +107,9 @@ Don't mess with special buffers."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+(set-background-color "#27292C")
+
 (require 'find-file-in-project)
 
 (global-set-key (kbd "C-x f") 'find-file-in-repository)
