@@ -1,5 +1,7 @@
 # -*- mode: sh -*-
 
+export PATH=$HOME/bin:$PATH
+
 if [ -d /opt/boxen ]; then
   source /opt/boxen/env.sh
 fi
@@ -13,7 +15,6 @@ exit_status () {
     echo $?
   fi
 }
-
 
 export HISTCONTROL=ignoredups:erasedups
 export HISTSIZE=100000
