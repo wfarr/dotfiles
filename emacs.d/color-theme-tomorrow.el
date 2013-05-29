@@ -13,7 +13,7 @@
 ;;; Code:
 
 (defconst color-theme-tomorrow-colors
-  '((night . ((background . "#1d1f21")
+  '((night . ((background . "#27292c")
               (current-line . "#282a2e")
               (selection . "#373b41")
               (foreground . "#c5c8c6")
