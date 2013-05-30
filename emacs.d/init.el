@@ -109,6 +109,7 @@ Don't mess with special buffers."
  )
 
 (set-background-color "#27292C")
+(setq mac-allow-anti-aliasing 't)
 
 (require 'find-file-in-project)
 
