@@ -37,6 +37,7 @@
     etags
     find-file-in-project
     find-file-in-repository
+    ido-ubiquitous
     js2-mode
     json
     make-mode
