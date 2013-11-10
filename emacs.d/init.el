@@ -37,18 +37,22 @@
     etags
     find-file-in-project
     find-file-in-repository
+    go-mode
+    ido-ubiquitous
     js2-mode
     json
     make-mode
     org
     markdown-mode
-    puppet-mode
     ruby-mode
+    zenburn-theme
     ))
 
 (dolist (p my-packages)
   (when (not (package-installed-p p))
     (package-install p)))
+
+;(load-theme 'zenburn t)
 
 (require 'ido)
 (require 'ido-ubiquitous)
@@ -66,6 +70,7 @@
  version-control t
 )
 
+(require 'puppet-mode)
 (add-to-list 'auto-mode-alist '("\\.pp$" . puppet-mode))
 (add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
 
@@ -108,8 +113,11 @@ Don't mess with special buffers."
  ;; If there is more than one, they won't work right.
  )
 
+(setq default-frame-alist '((background-color . "#27292C")))
 (set-background-color "#27292C")
+
 (setq mac-allow-anti-aliasing 't)
+
 
 (require 'find-file-in-project)
 
