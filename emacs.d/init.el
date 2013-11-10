@@ -12,8 +12,7 @@
 (electric-pair-mode +1)
 
 (require 'color-theme-tomorrow "/Users/wfarr/.emacs.d/color-theme-tomorrow.el")
-
-(load-theme 'tomorrow-night t)
+(load-theme 'tomorrow-night-bright t)
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 
@@ -70,7 +69,7 @@
  version-control t
 )
 
-(require 'puppet-mode)
+(require 'puppet-mode "/Users/wfarr/.emacs.d/puppet-mode.el")
 (add-to-list 'auto-mode-alist '("\\.pp$" . puppet-mode))
 (add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
 
