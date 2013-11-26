@@ -31,4 +31,23 @@ function current-ruby {
   fi
 }
 
+function current-git-branch {
+  branch="$(git rev-parse --abbrev-ref HEAD 2>/dev/null)"
+
+  if [ -n "$branch" ]; then
+    echo $branch
+  else
+    echo "not on a branch" >&2
+    return 1
+  fi
+}
+
+function synced-git-branch {
+  if git diff --exit-code origin/$(current-git-branch) && git diff --exit-code origin/master; then
+    return 0
+  else
+    return 1
+  fi
+}
+
 export PS1="\w\ » "
