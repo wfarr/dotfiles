@@ -2,6 +2,9 @@
 
 export PATH=$HOME/bin:$PATH
 
+export PATH=$PATH:~/pkg/bin:~/pkg/sbin
+export MANPATH=$MANPATH:~/pkg/man
+
 if [ -d /opt/boxen ]; then
   source /opt/boxen/env.sh
 fi
