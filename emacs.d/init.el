@@ -11,8 +11,10 @@
 
 (electric-pair-mode +1)
 
-(require 'color-theme-tomorrow "/Users/wfarr/.emacs.d/color-theme-tomorrow.el")
-(load-theme 'tomorrow-night-bright t)
+(let ((default-directory "~/.emacs.d/"))
+  (normal-top-level-add-to-load-path '("base16" "enhanced-ruby-mode" "powerline")))
+
+(require 'base16-chalk-theme)
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 
@@ -29,6 +31,7 @@
 (defvar my-packages
   '(
     ack
+    auto-complete
     coffee-mode
     css-mode
     diminish
@@ -37,14 +40,16 @@
     find-file-in-project
     find-file-in-repository
     go-mode
+    grizzl
+    highlight-indentation
     ido-ubiquitous
     js2-mode
     json
     make-mode
     org
     markdown-mode
-    ruby-mode
     zenburn-theme
+    projectile
     ))
 
 (dolist (p my-packages)
@@ -93,7 +98,7 @@ Don't mess with special buffers."
         (shell))
     (switch-to-buffer-other-window "*shell*")))
 
-(setq explicit-shell-file-name "/opt/boxen/homebrew/bin/bash")
+(setq explicit-shell-file-name "/bin/bash")
 
 (global-set-key (kbd "C-c t") 'visit-term-buffer)
 
@@ -117,10 +122,55 @@ Don't mess with special buffers."
 
 (setq mac-allow-anti-aliasing 't)
 
+(setq-default indent-tabs-mode nil
+              tab-width 4)
 
-(require 'find-file-in-project)
+(setq-default c-basic-offset 4
+              c-default-style "linux")
 
-(global-set-key (kbd "C-x f") 'find-file-in-repository)
+(projectile-global-mode)
 
-(mapc (lambda (e) (add-to-list 'ffip-patterns e))
-      '("*.lens" "*.pp" "*.bash" "*.go"))
+(custom-set-variables
+ '(whitespace-style '(face trailing lines-tail newline empty newline-mark indentation tab-mark space-mark))
+ '(whitespace-space-regexp "\\(^ +\\| +$\\)"))
+
+(add-hook 'go-mode-hook
+          (lambda ()
+            (setq-default indent-tabs-mode 't)))
+
+
+(add-to-list 'load-path "enhanced-ruby-mode") ; must be added after any path containing old ruby-mode
+(autoload 'enh-ruby-mode "enh-ruby-mode" "Major mode for ruby files" t)
+(add-to-list 'auto-mode-alist '("\\(Gemfile\\|Puppetfile\\|\\.rb\\)$" . enh-ruby-mode))
+(add-to-list 'interpreter-mode-alist '("ruby" . enh-ruby-mode))
+(setq enh-ruby-program "/usr/bin/ruby") ; so that still works if ruby points to ruby1.8
+(setq ruby-program "/usr/bin/ruby")
+
+(setq projectile-enable-caching t)
+(setq projectile-completion-system 'grizzl)
+
+(global-set-key (kbd "s-t") 'projectile-find-file)
+(global-set-key (kbd "s-b") 'projectile-switch-to-buffer)
+
+(add-hook 'emacs-lisp-mode-hook
+          (lambda ()
+            (eldoc-mode)))
+
+(require 'auto-complete-config)
+;; (add-to-list 'ac-dictionary-directories
+;;     "~/.emacs.d/.cask/24.3.50.1/elpa/auto-complete-20130724.1750/dict")
+(ac-config-default)
+
+(setq ac-ignore-case nil)
+(add-to-list 'ac-modes 'enh-ruby-mode)
+(add-to-list 'ac-modes 'web-mode)
+
+(require 'highlight-indentation)
+(add-hook 'enh-ruby-mode-hook
+          (lambda () (highlight-indentation-current-column-mode)))
+
+(add-hook 'coffee-mode-hook
+          (lambda () (highlight-indentation-current-column-mode)))
+
+(require 'powerline)
+(powerline-default-theme)
