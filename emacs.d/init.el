@@ -136,7 +136,7 @@ Don't mess with special buffers."
  '(whitespace-style '(face trailing lines-tail newline empty newline-mark indentation tab-mark space-mark))
  '(whitespace-space-regexp "\\(^ +\\| +$\\)")
  '(calendar-week-start-day 1)
- '(org-agenda-files (quote ("/Users/wfarr/org/gtd.org")))
+ '(org-agenda-files (quote ("/Users/wfarr/Dropbox/org/gtd.org")))
  '(org-agenda-ndays 7)
  '(org-agenda-repeating-timestamp-show-all nil)
  '(org-agenda-restore-windows-after-quit t)
@@ -223,7 +223,7 @@ Don't mess with special buffers."
 (define-key global-map "\C-ca" 'org-agenda)
 
 
-(setq org-directory "/Users/wfarr/org/")
+(setq org-directory "/Users/wfarr/Dropbox/org/")
 (setq org-default-notes-file "~/.notes")
 
 (setq remember-annotation-functions '(org-remember-annotation))
@@ -233,7 +233,7 @@ Don't mess with special buffers."
 
 (setq org-remember-templates
       '(
-        ("Todo" ?t "* TODO %^{Brief Description} %^g\n%?\nAdded: %U" "/Users/wfarr/org/gtd.org" "Tasks")
+        ("Todo" ?t "* TODO %^{Brief Description} %^g\n%?\nAdded: %U" "/Users/wfarr/Dropbox/org/gtd.org" "Tasks")
         ))
 
 (setq org-agenda-custom-commands
@@ -258,6 +258,6 @@ Don't mess with special buffers."
 
 (defun gtd ()
   (interactive)
-  (find-file "/Users/wfarr/org/gtd.org"))
+  (find-file "/Users/wfarr/Dropbox/org/gtd.org"))
 
 (global-set-key (kbd "C-c g") 'gtd)
