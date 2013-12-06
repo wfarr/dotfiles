@@ -119,8 +119,8 @@ Don't mess with special buffers."
  ;; If there is more than one, they won't work right.
  )
 
-(setq default-frame-alist '((background-color . "#27292C")))
-(set-background-color "#27292C")
+;;(setq default-frame-alist '((background-color . "#27292C")))
+;;(set-background-color "#27292C")
 
 (setq mac-allow-anti-aliasing 't)
 
