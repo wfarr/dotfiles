@@ -22,6 +22,8 @@
 
 (add-to-list 'package-archives
              '("marmalade" . "http://marmalade-repo.org/packages/") t)
+(add-to-list 'package-archives
+             '("org" . "http://orgmode.org/elpa/") t)
 
 (package-initialize)
 
@@ -46,7 +48,7 @@
     js2-mode
     json
     make-mode
-    org
+    org-plus-contrib
     markdown-mode
     zenburn-theme
     projectile
@@ -132,7 +134,32 @@ Don't mess with special buffers."
 
 (custom-set-variables
  '(whitespace-style '(face trailing lines-tail newline empty newline-mark indentation tab-mark space-mark))
- '(whitespace-space-regexp "\\(^ +\\| +$\\)"))
+ '(whitespace-space-regexp "\\(^ +\\| +$\\)")
+ '(calendar-week-start-day 1)
+ '(org-agenda-files (quote ("/Users/wfarr/org/gtd.org")))
+ '(org-agenda-ndays 7)
+ '(org-agenda-repeating-timestamp-show-all nil)
+ '(org-agenda-restore-windows-after-quit t)
+ '(org-agenda-show-all-dates t)
+ '(org-agenda-skip-deadline-if-done t)
+ '(org-agenda-skip-scheduled-if-done t)
+ '(org-agenda-sorting-strategy (quote ((agenda time-up priority-down tag-up) (todo tag-up))))
+ '(org-agenda-start-on-weekday nil)
+ '(org-agenda-todo-ignore-deadlines t)
+ '(org-agenda-todo-ignore-scheduled t)
+ '(org-agenda-todo-ignore-with-date t)
+ '(org-agenda-window-setup (quote other-window))
+ '(org-deadline-warning-days 7)
+ '(org-fast-tag-selection-single-key nil)
+ '(org-log-done (quote (done)))
+ '(org-refile-targets (quote (("gtd.org" :maxlevel . 1) ("someday.org" :level . 2))))
+ '(org-reverse-note-order nil)
+ '(org-tags-column -78)
+ '(org-tags-match-list-sublevels nil)
+ '(org-time-stamp-rounding-minutes 5)
+ '(org-use-fast-todo-selection t)
+ '(org-use-tag-inheritance nil)
+)
 
 (add-hook 'go-mode-hook
           (lambda ()
@@ -174,3 +201,63 @@ Don't mess with special buffers."
 
 (require 'powerline)
 (powerline-default-theme)
+
+(require 'org)
+(require 'remember)
+(require 'org-remember)
+(add-hook 'org-mode-hook
+          (lambda ()
+            (progn
+              (require 'org-mac-link)
+              (setq org-use-fast-todo-selection t)
+              (setq org-use-fast-tag-selection t)
+              (setq org-log-done nil)
+              (setq org-agenda-include-diary nil)
+              (setq org-deadline-warning-days 7)
+              (setq org-timeline-show-empty-dates t)
+              (setq org-insert-mode-line-in-empty-file t)
+
+              (define-key org-mode-map (kbd "C-c g") 'org-mac-grab-link))))
+
+(define-key global-map "\C-cl" 'org-store-link)
+(define-key global-map "\C-ca" 'org-agenda)
+
+
+(setq org-directory "/Users/wfarr/org/")
+(setq org-default-notes-file "~/.notes")
+
+(setq remember-annotation-functions '(org-remember-annotation))
+(setq remember-handler-functions '(org-remember-handler))
+(add-hook 'remember-mode-hook 'org-remember-apply-template)
+(define-key global-map "\C-cr" 'org-remember)
+
+(setq org-remember-templates
+      '(
+        ("Todo" ?t "* TODO %^{Brief Description} %^g\n%?\nAdded: %U" "/Users/wfarr/org/gtd.org" "Tasks")
+        ))
+
+(setq org-agenda-custom-commands
+'(
+
+  ("P" "Projects"
+   ((tags "PROJECT")))
+
+  ("H" "Office and Home Lists"
+   ((agenda)
+    (tags-todo "OFFICE")
+    (tags-todo "HOME")
+    (tags-todo "COMPUTER")
+    (tags-todo "DVD")
+    (tags-todo "READING")))
+
+  ("D" "Daily Action List"
+   ((agenda "" ((org-agenda-ndays 1)
+                (org-agenda-sorting-strategy
+                 (quote ((agenda time-up priority-down tag-up))))
+                (org-deadline-warning-days 0)))))))
+
+(defun gtd ()
+  (interactive)
+  (find-file "/Users/wfarr/org/gtd.org"))
+
+(global-set-key (kbd "C-c g") 'gtd)
