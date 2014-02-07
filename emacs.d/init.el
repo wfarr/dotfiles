@@ -46,6 +46,7 @@
     go-mode
     grizzl
     highlight-indentation
+    ido-vertical-mode
     ido-ubiquitous
     js2-mode
     json
@@ -54,6 +55,7 @@
     markdown-mode
     zenburn-theme
     projectile
+
     ))
 
 (dolist (p my-packages)
@@ -67,6 +69,7 @@
 (require 'ido)
 (require 'ido-ubiquitous)
 (ido-mode)
+(ido-vertical-mode 1)
 (ido-ubiquitous-mode 1)
 (setq ido-enable-flex-matching t)
 
