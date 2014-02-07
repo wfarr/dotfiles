@@ -14,7 +14,11 @@
 (setq ns-use-srgb-colorspace t)
 
 (let ((default-directory "~/.emacs.d/"))
-  (normal-top-level-add-to-load-path '("base16" "enhanced-ruby-mode" "powerline")))
+  (normal-top-level-add-to-load-path '("base16" "dash-at-point" "enhanced-ruby-mode" "powerline")))
+
+(autoload 'dash-at-point "dash-at-point"
+          "Search the word at point with Dash." t nil)
+(global-set-key "\C-cd" 'dash-at-point)
 
 ;;(require 'base16-chalk-theme)
 
@@ -118,7 +122,44 @@ Don't mess with special buffers."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-safe-themes (quote ("cf08ae4c26cacce2eebff39d129ea0a21c9d7bf70ea9b945588c1c66392578d1" "1157a4055504672be1df1232bed784ba575c60ab44d8e6c7b3800ae76b42f8bd" default))))
+ '(calendar-week-start-day 1)
+ '(custom-safe-themes
+   (quote
+    ("5ee12d8250b0952deefc88814cf0672327d7ee70b16344372db9460e9a0e3ffc" "cf08ae4c26cacce2eebff39d129ea0a21c9d7bf70ea9b945588c1c66392578d1" "1157a4055504672be1df1232bed784ba575c60ab44d8e6c7b3800ae76b42f8bd" default)))
+ '(ido-vertical-mode t)
+ '(org-agenda-files (quote ("/Users/wfarr/Dropbox/org/gtd.org")))
+ '(org-agenda-ndays 7)
+ '(org-agenda-repeating-timestamp-show-all nil)
+ '(org-agenda-restore-windows-after-quit t)
+ '(org-agenda-show-all-dates t)
+ '(org-agenda-skip-deadline-if-done t)
+ '(org-agenda-skip-scheduled-if-done t)
+ '(org-agenda-sorting-strategy
+   (quote
+    ((agenda time-up priority-down tag-up)
+     (todo tag-up))))
+ '(org-agenda-start-on-weekday nil)
+ '(org-agenda-todo-ignore-deadlines t)
+ '(org-agenda-todo-ignore-scheduled t)
+ '(org-agenda-todo-ignore-with-date t)
+ '(org-agenda-window-setup (quote other-window))
+ '(org-deadline-warning-days 7)
+ '(org-fast-tag-selection-single-key nil)
+ '(org-log-done (quote (done)))
+ '(org-refile-targets
+   (quote
+    (("gtd.org" :maxlevel . 1)
+     ("someday.org" :level . 2))))
+ '(org-reverse-note-order nil)
+ '(org-tags-column -78)
+ '(org-tags-match-list-sublevels nil)
+ '(org-time-stamp-rounding-minutes 5)
+ '(org-use-fast-todo-selection t)
+ '(org-use-tag-inheritance nil)
+ '(whitespace-space-regexp "\\(^ +\\| +$\\)")
+ '(whitespace-style
+   (quote
+    (face trailing lines-tail newline empty newline-mark indentation tab-mark space-mark))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -139,34 +180,7 @@ Don't mess with special buffers."
 
 (projectile-global-mode)
 
-(custom-set-variables
- '(whitespace-style '(face trailing lines-tail newline empty newline-mark indentation tab-mark space-mark))
- '(whitespace-space-regexp "\\(^ +\\| +$\\)")
- '(calendar-week-start-day 1)
- '(org-agenda-files (quote ("/Users/wfarr/Dropbox/org/gtd.org")))
- '(org-agenda-ndays 7)
- '(org-agenda-repeating-timestamp-show-all nil)
- '(org-agenda-restore-windows-after-quit t)
- '(org-agenda-show-all-dates t)
- '(org-agenda-skip-deadline-if-done t)
- '(org-agenda-skip-scheduled-if-done t)
- '(org-agenda-sorting-strategy (quote ((agenda time-up priority-down tag-up) (todo tag-up))))
- '(org-agenda-start-on-weekday nil)
- '(org-agenda-todo-ignore-deadlines t)
- '(org-agenda-todo-ignore-scheduled t)
- '(org-agenda-todo-ignore-with-date t)
- '(org-agenda-window-setup (quote other-window))
- '(org-deadline-warning-days 7)
- '(org-fast-tag-selection-single-key nil)
- '(org-log-done (quote (done)))
- '(org-refile-targets (quote (("gtd.org" :maxlevel . 1) ("someday.org" :level . 2))))
- '(org-reverse-note-order nil)
- '(org-tags-column -78)
- '(org-tags-match-list-sublevels nil)
- '(org-time-stamp-rounding-minutes 5)
- '(org-use-fast-todo-selection t)
- '(org-use-tag-inheritance nil)
-)
+
 
 (add-hook 'go-mode-hook
           (lambda ()
@@ -191,27 +205,27 @@ Don't mess with special buffers."
             (eldoc-mode)))
 
 (require 'auto-complete-config)
-;; (add-to-list 'ac-dictionary-directories
-;;     "~/.emacs.d/.cask/24.3.50.1/elpa/auto-complete-20130724.1750/dict")
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/elpa/auto-complete-1.4/dict")
 (ac-config-default)
 
 (setq ac-ignore-case nil)
+(setq ac-use-quick-help nil)
 (add-to-list 'ac-modes 'enh-ruby-mode)
 (add-to-list 'ac-modes 'web-mode)
-
-(require 'highlight-indentation)
-(add-hook 'enh-ruby-mode-hook
-          (lambda () (highlight-indentation-current-column-mode)))
-
-(add-hook 'coffee-mode-hook
-          (lambda () (highlight-indentation-current-column-mode)))
 
 (require 'powerline)
 (powerline-default-theme)
 
+(setq rsense-home "/opt/boxen/homebrew/Cellar/rsense/0.3/libexec")
+(add-to-list 'load-path (concat rsense-home "/etc"))
+(require 'rsense)
+
+(add-hook 'enh-ruby-mode-hook
+          (lambda ()
+            (add-to-list 'ac-sources 'ac-source-rsense-method)
+            (add-to-list 'ac-sources 'ac-source-rsense-constant)))
+
 (require 'org)
-(require 'remember)
-(require 'org-remember)
 (add-hook 'org-mode-hook
           (lambda ()
             (progn
@@ -231,17 +245,16 @@ Don't mess with special buffers."
 
 
 (setq org-directory "/Users/wfarr/Dropbox/org/")
-(setq org-default-notes-file "~/.notes")
+(setq org-default-notes-file (concat org-directory "notes.org"))
 
-(setq remember-annotation-functions '(org-remember-annotation))
-(setq remember-handler-functions '(org-remember-handler))
-(add-hook 'remember-mode-hook 'org-remember-apply-template)
-(define-key global-map "\C-cr" 'org-remember)
+(setq org-capture-templates
+      '(("g" "GitHub Task" entry (file+olp (concat org-directory "gtd.org") "TASKS" "GitHub")
+         "* TODO %^{Brief Description} %^g\n%?\nAdded: %U" :clock-resume :kill-buffer :empty-lines 1)
+        ("t" "Todo" entry (file+headline (concat org-directory "gtd.org") "TASKS")
+         "* TODO %^{Brief Description} %^g\n%?\nAdded: %U" :clock-resume :kill-buffer :empty-lines 1 :prepend)))
 
-(setq org-remember-templates
-      '(
-        ("Todo" ?t "* TODO %^{Brief Description} %^g\n%?\nAdded: %U" "/Users/wfarr/Dropbox/org/gtd.org" "Tasks")
-        ))
+
+(define-key global-map "\C-cr" 'org-capture)
 
 (setq org-agenda-custom-commands
 '(
@@ -254,7 +267,7 @@ Don't mess with special buffers."
     (tags-todo "OFFICE")
     (tags-todo "HOME")
     (tags-todo "COMPUTER")
-    (tags-todo "DVD")
+    (tags-todo "TALKS")
     (tags-todo "READING")))
 
   ("D" "Daily Action List"
@@ -262,6 +275,10 @@ Don't mess with special buffers."
                 (org-agenda-sorting-strategy
                  (quote ((agenda time-up priority-down tag-up))))
                 (org-deadline-warning-days 0)))))))
+
+(defun wfarr-org-archive-done ()
+  (interactive)
+  (org-map-entries 'org-archive-subtree "/DONE" 'file))
 
 (defun gtd ()
   (interactive)
