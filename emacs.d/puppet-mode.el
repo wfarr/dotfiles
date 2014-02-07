@@ -311,7 +311,7 @@ worrying about saving the excursion."
    '("^\\s *\\([a-z][a-zA-Z0-9_:-]*\\)\\s +{"
      1 font-lock-function-name-face)
    ;; resource param names
-   '("^\\s *\\([a-z_]+\\)\\s +=>"
+   '("^\\s *\\([a-z][a-z_0-9]+\\)\\s +=>"
      1 font-lock-constant-face)
    ;; overrides and type references
    '("\\s +\\([A-Z][a-zA-Z0-9_:-]*\\)\\["
