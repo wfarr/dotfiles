@@ -11,6 +11,8 @@
 
 (electric-pair-mode +1)
 
+(setq ns-use-srgb-colorspace t)
+
 (let ((default-directory "~/.emacs.d/"))
   (normal-top-level-add-to-load-path '("base16" "enhanced-ruby-mode" "powerline")))
 
