@@ -14,11 +14,7 @@
 (setq ns-use-srgb-colorspace t)
 
 (let ((default-directory "~/.emacs.d/"))
-  (normal-top-level-add-to-load-path '("base16" "dash-at-point" "enhanced-ruby-mode" "powerline")))
-
-(autoload 'dash-at-point "dash-at-point"
-          "Search the word at point with Dash." t nil)
-(global-set-key "\C-cd" 'dash-at-point)
+  (normal-top-level-add-to-load-path '("base16" "enhanced-ruby-mode" "powerline")))
 
 ;;(require 'base16-chalk-theme)
 
