@@ -16,7 +16,7 @@
 (let ((default-directory "~/.emacs.d/"))
   (normal-top-level-add-to-load-path '("base16" "enhanced-ruby-mode" "powerline")))
 
-(require 'base16-chalk-theme)
+;;(require 'base16-chalk-theme)
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 
@@ -60,7 +60,9 @@
   (when (not (package-installed-p p))
     (package-install p)))
 
-;(load-theme 'zenburn t)
+;;(load-theme 'zenburn t)
+(load-theme 'wombat t)
+
 
 (require 'ido)
 (require 'ido-ubiquitous)
