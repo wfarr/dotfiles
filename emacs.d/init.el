@@ -55,8 +55,11 @@
     markdown-mode
     zenburn-theme
     projectile
-
     ))
+
+(require 'linum)
+(setq linum-format 'dynamic)
+(global-linum-mode t)
 
 (dolist (p my-packages)
   (when (not (package-installed-p p))
