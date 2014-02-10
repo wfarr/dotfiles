@@ -236,7 +236,8 @@ worrying about saving the excursion."
        (array-start
         (save-excursion
           (goto-char array-start)
-          (forward-char 1)
+          (beginning-of-line-text)
+          (forward-char 2)
           (if (looking-at "\\s-+\n")
               (setq cur-indent (1+ (current-column)))
             (re-search-forward "\\S-")
