@@ -189,6 +189,7 @@ Don't mess with special buffers."
 (add-to-list 'interpreter-mode-alist '("ruby" . enh-ruby-mode))
 (setq enh-ruby-program "/usr/bin/ruby") ; so that still works if ruby points to ruby1.8
 (setq ruby-program "/usr/bin/ruby")
+(setq enh-ruby-deep-indent-paren nil)
 
 (setq projectile-enable-caching t)
 (setq projectile-completion-system 'grizzl)
