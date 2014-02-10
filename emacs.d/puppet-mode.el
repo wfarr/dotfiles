@@ -314,6 +314,9 @@ worrying about saving the excursion."
    ;; resource param names
    '("^\\s *\\([a-z][a-z_0-9]+\\)\\s +=>"
      1 font-lock-constant-face)
+   ;; bareword resource param values
+   '("=>\\s +\\([a-z_]+\\)\\s *,?$"
+     1 font-lock-keyword-face)
    ;; overrides and type references
    '("\\s +\\([A-Z][a-zA-Z0-9_:-]*\\)\\["
      1 font-lock-type-face)
@@ -377,8 +380,9 @@ worrying about saving the excursion."
           'words)
      1)
    ;; avoid marking require in resources as a keyword
-   '("\\b\\(require\\)\\s-*=>"
-     1 puppet-font-lock-default-face t))
+;;   '("\\b\\(require\\)\\s-*=>"
+   ;;     1 puppet-font-lock-default-face t))
+   )
   "*Additional expressions to highlight in puppet mode.")
 
 ;;;###autoload
