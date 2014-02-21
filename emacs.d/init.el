@@ -26,6 +26,8 @@
              '("marmalade" . "http://marmalade-repo.org/packages/") t)
 (add-to-list 'package-archives
              '("org" . "http://orgmode.org/elpa/") t)
+(add-to-list 'package-archives
+             '("melpa" . "http://melpa.milkbox.net/packages/") t)
 
 (package-initialize)
 
@@ -50,6 +52,7 @@
     ido-ubiquitous
     js2-mode
     json
+    magit
     make-mode
     org-plus-contrib
     markdown-mode
@@ -61,6 +64,8 @@
 (require 'linum)
 (setq linum-format 'dynamic)
 (global-linum-mode t)
+
+;;(setq package-pinned-packages '(:magit . "melpa"))
 
 (dolist (p my-packages)
   (when (not (package-installed-p p))
