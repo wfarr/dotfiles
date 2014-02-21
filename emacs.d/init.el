@@ -55,6 +55,7 @@
     markdown-mode
     zenburn-theme
     projectile
+    scss-mode
     ))
 
 (require 'linum)
