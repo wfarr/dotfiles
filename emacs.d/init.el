@@ -59,20 +59,36 @@
     zenburn-theme
     projectile
     scss-mode
+    spacegray-theme
+    hlinum
     ))
 
-(require 'linum)
-(setq linum-format 'dynamic)
-(global-linum-mode t)
 
 ;;(setq package-pinned-packages '(:magit . "melpa"))
+;;(setq package-pinned-packages '(:spacegray-theme . "melpa"))
 
 (dolist (p my-packages)
   (when (not (package-installed-p p))
     (package-install p)))
 
 ;;(load-theme 'zenburn t)
-(load-theme 'wombat t)
+;;(load-theme 'wombat t)
+(load-theme 'spacegray t)
+(global-hl-line-mode 1)
+
+(require 'linum)
+(global-linum-mode 1)
+(setq linum-format 'dynamic)
+(defadvice linum-update-window (around linum-dynamic activate)
+  (let* ((w (length (number-to-string
+                     (count-lines (point-min) (point-max)))))
+         (linum-format (concat " %" (number-to-string w) "d ")))
+    ad-do-it))
+
+(require 'hlinum)
+(hlinum-activate)
+
+(fringe-mode -1)
 
 
 (require 'ido)
@@ -222,7 +238,7 @@ Don't mess with special buffers."
 (add-to-list 'ac-modes 'web-mode)
 
 (require 'powerline)
-(powerline-default-theme)
+(powerline-center-evil-theme)
 
 (setq rsense-home "/opt/boxen/homebrew/Cellar/rsense/0.3/libexec")
 (add-to-list 'load-path (concat rsense-home "/etc"))
