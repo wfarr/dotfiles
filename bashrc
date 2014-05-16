@@ -25,8 +25,8 @@ RESET="\[\e[m\]"
 export PATH=/usr/texbin:$PATH
 
 export GOROOT=~/go
-export GOPATH=~/gocode
-export PATH=~/gocode/bin:~/go/bin:$PATH
+export GOPATH=$HOME
+export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 
 alias emacs="open -a /Applications/Emacs.app $@"
 
