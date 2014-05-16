@@ -8,5 +8,5 @@ if [ "${TERM}" != "dumb" ]; then
   export CLICOLOR="cons25"
   export TERM=screen-256color
 
-  export PS1="${PIN}${GREY}\w ${RED}\$(current-ruby) ${GREY}»${RESET} "
+  export PS1="${PIN}${CYAN}\w ${BLUE}ruby:${RED}\$(current-ruby) ${BLUE}git:${GREEN}\$(current-git-branch)${RESET} ${GREY}»${RESET} "
 fi

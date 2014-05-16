@@ -15,30 +15,28 @@ export HISTFILESIZE=100000
 shopt -s histappend
 
 PIN="\[\033[G\]"
+GREEN="\[\e[0;32m\]"
 GREY="\[\e[0;33m\]"
+BLUE="\[\e[0;34m\]"
+CYAN="\[\e[0;36m\]"
 RED="\[\e[1;31m\]"
 RESET="\[\e[m\]"
 
+export PATH=/usr/texbin:$PATH
+
+export GOROOT=~/go
 export GOPATH=~/gocode
+export PATH=~/gocode/bin:~/go/bin:$PATH
 
 alias emacs="open -a /Applications/Emacs.app $@"
-
-function current-ruby {
-  if [ -z "$RUBY_ROOT" ]; then
-    echo "system"
-  else
-    echo "${RUBY_ROOT##*/}"
-  fi
-}
 
 function current-git-branch {
   branch="$(git rev-parse --abbrev-ref HEAD 2>/dev/null)"
 
   if [ -n "$branch" ]; then
-    echo $branch
+    echo "${branch}"
   else
-    echo "not on a branch" >&2
-    return 1
+    echo "(no branch)"
   fi
 }
 
@@ -50,4 +48,4 @@ function synced-git-branch {
   fi
 }
 
-export PS1="\w\ » "
+export PS1="\w ruby:\$(current-ruby) git:\$(current-git-branch) » "
