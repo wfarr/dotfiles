@@ -5,9 +5,13 @@ export PATH=$HOME/bin:$PATH
 export PATH=$PATH:~/pkg/bin:~/pkg/sbin
 export MANPATH=$MANPATH:~/pkg/man
 
-if [ -d /opt/boxen ]; then
-  source /opt/boxen/env.sh
-fi
+#if [ -d /opt/boxen ]; then
+#  source /opt/boxen/env.sh
+#fi
+
+for script in $(find ~/.do-setup/env.d -type f); do
+  source $script
+done
 
 export HISTCONTROL=ignoredups:erasedups
 export HISTSIZE=100000
@@ -24,9 +28,9 @@ RESET="\[\e[m\]"
 
 export PATH=/usr/texbin:$PATH
 
-export GOROOT=~/go
-export GOPATH=~/gocode
-export PATH=~/gocode/bin:~/go/bin:$PATH
+#export GOROOT=~/go
+#export GOPATH=~/gocode
+#export PATH=~/gocode/bin:~/go/bin:$PATH
 
 alias emacs="open -a /Applications/Emacs.app $@"
 
@@ -47,5 +51,7 @@ function synced-git-branch {
     return 1
   fi
 }
+
+source ~/.secrets.sh
 
 export PS1="\w ruby:\$(current-ruby) git:\$(current-git-branch) » "
