@@ -52,6 +52,6 @@ function synced-git-branch {
   fi
 }
 
-source ~/.secrets.sh
+test -f ~/.secrets.sh && source ~/.secrets.sh
 
 export PS1="\w ruby:\$(current-ruby) git:\$(current-git-branch) » "
