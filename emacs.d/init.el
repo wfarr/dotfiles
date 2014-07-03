@@ -43,6 +43,7 @@
     diminish
     eldoc
     etags
+    evil
     find-file-in-project
     find-file-in-repository
     go-mode
@@ -204,10 +205,25 @@ Don't mess with special buffers."
 (projectile-global-mode)
 
 
+;;(load "$GOPATH/src/code.google.com/p/go.tools/cmd/oracle/oracle.el")
+
+;;(require 'flymake-go)
+(add-to-list 'load-path (concat (or (getenv "GOPATH") (getenv "HOME")) "/src/github.com/dougm/goflymake"))
+(require 'go-flymake)
+
+(add-hook 'before-save-hook 'gofmt-before-save)
 
 (add-hook 'go-mode-hook
           (lambda ()
-            (setq-default indent-tabs-mode 't)))
+            (setq-default indent-tabs-mode 't)
+
+
+			(local-set-key (kbd "C-c C-m") 'godoc)
+			(local-set-key (kbd "C-c C-f") 'gofmt)
+			(local-set-key (kbd "C-c C-r") 'go-remove-unused-imports)
+            ;; (go-oracle-mode)
+			;; (custom-set-variables '(go-oracle-command "$HOME/bin/oracle"))
+            ))
 
 
 (add-to-list 'load-path "enhanced-ruby-mode") ; must be added after any path containing old ruby-mode
@@ -228,7 +244,9 @@ Don't mess with special buffers."
           (lambda ()
             (eldoc-mode)))
 
+(require 'go-mode)
 (require 'auto-complete-config)
+(require 'go-autocomplete)
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/elpa/auto-complete-1.4/dict")
 (ac-config-default)
 
@@ -237,78 +255,78 @@ Don't mess with special buffers."
 (add-to-list 'ac-modes 'enh-ruby-mode)
 (add-to-list 'ac-modes 'web-mode)
 
-(require 'powerline)
-(powerline-center-evil-theme)
+;;(require 'powerline)
+;;(powerline-center-evil-theme)
 
-(setq rsense-home "/opt/boxen/homebrew/Cellar/rsense/0.3/libexec")
-(add-to-list 'load-path (concat rsense-home "/etc"))
-(require 'rsense)
+;;(setq rsense-home "/opt/boxen/homebrew/Cellar/rsense/0.3/libexec")
+;;(add-to-list 'load-path (concat rsense-home "/etc"))
+;;(require 'rsense)
 
-(add-hook 'enh-ruby-mode-hook
-          (lambda ()
-            (add-to-list 'ac-sources 'ac-source-rsense-method)
-            (add-to-list 'ac-sources 'ac-source-rsense-constant)))
+;;(add-hook 'enh-ruby-mode-hook
+;;          (lambda ()
+;;            (add-to-list 'ac-sources 'ac-source-rsense-method)
+;;            (add-to-list 'ac-sources 'ac-source-rsense-constant)))
 
-(require 'org)
-(add-hook 'org-mode-hook
-          (lambda ()
-            (progn
-              (require 'org-mac-link)
-              (setq org-use-fast-todo-selection t)
-              (setq org-use-fast-tag-selection t)
-              (setq org-log-done nil)
-              (setq org-agenda-include-diary nil)
-              (setq org-deadline-warning-days 7)
-              (setq org-timeline-show-empty-dates t)
-              (setq org-insert-mode-line-in-empty-file t)
-
-              (define-key org-mode-map (kbd "C-c g") 'org-mac-grab-link))))
-
-(define-key global-map "\C-cl" 'org-store-link)
-(define-key global-map "\C-ca" 'org-agenda)
-
-
-(setq org-directory "/Users/wfarr/Dropbox/org/")
-(setq org-default-notes-file (concat org-directory "notes.org"))
-
-(setq org-capture-templates
-      '(("g" "GitHub Task" entry (file+olp (concat org-directory "gtd.org") "TASKS" "GitHub")
-         "* TODO %^{Brief Description} %^g\n%?\nAdded: %U" :clock-resume :kill-buffer :empty-lines 1)
-        ("t" "Todo" entry (file+headline (concat org-directory "gtd.org") "TASKS")
-         "* TODO %^{Brief Description} %^g\n%?\nAdded: %U" :clock-resume :kill-buffer :empty-lines 1 :prepend)))
-
-
-(define-key global-map "\C-cr" 'org-capture)
-
-(setq org-agenda-custom-commands
-'(
-
-  ("P" "Projects"
-   ((tags "PROJECT")))
-
-  ("H" "Office and Home Lists"
-   ((agenda)
-    (tags-todo "OFFICE")
-    (tags-todo "HOME")
-    (tags-todo "COMPUTER")
-    (tags-todo "TALKS")
-    (tags-todo "READING")))
-
-  ("D" "Daily Action List"
-   ((agenda "" ((org-agenda-ndays 1)
-                (org-agenda-sorting-strategy
-                 (quote ((agenda time-up priority-down tag-up))))
-                (org-deadline-warning-days 0)))))))
-
-(defun wfarr-org-archive-done ()
-  (interactive)
-  (org-map-entries 'org-archive-subtree "/DONE" 'file))
-
-(defun gtd ()
-  (interactive)
-  (find-file "/Users/wfarr/Dropbox/org/gtd.org"))
-
-(global-set-key (kbd "C-c g") 'gtd)
+;;(require 'org)
+;;(add-hook 'org-mode-hook
+;;          (lambda ()
+;;            (progn
+;;              (require 'org-mac-link)
+;;              (setq org-use-fast-todo-selection t)
+;;              (setq org-use-fast-tag-selection t)
+;;              (setq org-log-done nil)
+;;              (setq org-agenda-include-diary nil)
+;;              (setq org-deadline-warning-days 7)
+;;              (setq org-timeline-show-empty-dates t)
+;;              (setq org-insert-mode-line-in-empty-file t)
+;;
+;;              (define-key org-mode-map (kbd "C-c g") 'org-mac-grab-link))))
+;;
+;;(define-key global-map "\C-cl" 'org-store-link)
+;;(define-key global-map "\C-ca" 'org-agenda)
+;;
+;;
+;;(setq org-directory "/Users/wfarr/Dropbox/org/")
+;;(setq org-default-notes-file (concat org-directory "notes.org"))
+;;
+;;(setq org-capture-templates
+;;      '(("g" "GitHub Task" entry (file+olp (concat org-directory "gtd.org") "TASKS" "GitHub")
+;;         "* TODO %^{Brief Description} %^g\n%?\nAdded: %U" :clock-resume :kill-buffer :empty-lines 1)
+;;        ("t" "Todo" entry (file+headline (concat org-directory "gtd.org") "TASKS")
+;;         "* TODO %^{Brief Description} %^g\n%?\nAdded: %U" :clock-resume :kill-buffer :empty-lines 1 :prepend)))
+;;
+;;
+;;(define-key global-map "\C-cr" 'org-capture)
+;;
+;;(setq org-agenda-custom-commands
+;;'(
+;;
+;;  ("P" "Projects"
+;;   ((tags "PROJECT")))
+;;
+;;  ("H" "Office and Home Lists"
+;;   ((agenda)
+;;    (tags-todo "OFFICE")
+;;    (tags-todo "HOME")
+;;    (tags-todo "COMPUTER")
+;;    (tags-todo "TALKS")
+;;    (tags-todo "READING")))
+;;
+;;  ("D" "Daily Action List"
+;;   ((agenda "" ((org-agenda-ndays 1)
+;;                (org-agenda-sorting-strategy
+;;                 (quote ((agenda time-up priority-down tag-up))))
+;;                (org-deadline-warning-days 0)))))))
+;;
+;;(defun wfarr-org-archive-done ()
+;;  (interactive)
+;;  (org-map-entries 'org-archive-subtree "/DONE" 'file))
+;;
+;;(defun gtd ()
+;;  (interactive)
+;;  (find-file "/Users/wfarr/Dropbox/org/gtd.org"))
+;;
+;;(global-set-key (kbd "C-c g") 'gtd)
 
 (add-hook 'before-save-hook
           (lambda ()
