@@ -181,6 +181,7 @@ Don't mess with special buffers."
 
 (projectile-global-mode)
 
+
 (setq exec-path
 	  (append
 	   (list
@@ -250,7 +251,10 @@ Don't mess with special buffers."
           (lambda ()
             (eldoc-mode)))
 
+(require 'go-mode)
 (require 'auto-complete-config)
+
+(require 'go-autocomplete)
 
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/elpa/auto-complete-1.4/dict")
 (ac-config-default)

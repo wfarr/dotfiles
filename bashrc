@@ -13,6 +13,8 @@ for script in $(find ~/.do-setup/env.d -type f); do
   source $script
 done
 
+export PATH=/usr/local/packer:$PATH
+
 export HISTCONTROL=ignoredups:erasedups
 export HISTSIZE=100000
 export HISTFILESIZE=100000
@@ -55,3 +57,4 @@ function synced-git-branch {
 test -f ~/.secrets.sh && source ~/.secrets.sh
 
 export PS1="\w ruby:\$(current-ruby) git:\$(current-git-branch) » "
+export VAGRANT_DEFAULT_PROVIDER=vmware_fusion
