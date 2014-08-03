@@ -25,8 +25,6 @@
 (add-to-list 'package-archives
              '("marmalade" . "http://marmalade-repo.org/packages/") t)
 (add-to-list 'package-archives
-             '("org" . "http://orgmode.org/elpa/") t)
-(add-to-list 'package-archives
              '("melpa" . "http://melpa.milkbox.net/packages/") t)
 
 (package-initialize)
@@ -36,33 +34,38 @@
 
 (defvar my-packages
   '(
-    ack
-    auto-complete
-    coffee-mode
-    css-mode
-    diminish
+    ;; behavior-altering packages
+	auto-complete
+	flycheck
+    helm
+    helm-ack
+    helm-projectile
+    magit
+    projectile
+
+    ;;???
     eldoc
     etags
-    find-file-in-project
-    find-file-in-repository
-    go-mode
     grizzl
     highlight-indentation
-    ido-vertical-mode
-    ido-ubiquitous
-    js2-mode
     json
-    magit
-    make-mode
-    org-plus-contrib
-    markdown-mode
-    zenburn-theme
-    projectile
-    scss-mode
-    spacegray-theme
-    hlinum
-    ))
 
+    ;;themes
+    zenburn-theme
+    spacegray-theme
+
+    ;; go-related packages
+    go-mode
+	go-eldoc
+
+    ;; misc mode packages
+    coffee-mode
+    css-mode
+    js2-mode
+    make-mode
+    markdown-mode
+    scss-mode
+    ))
 
 ;;(setq package-pinned-packages '(:magit . "melpa"))
 ;;(setq package-pinned-packages '(:spacegray-theme . "melpa"))
@@ -76,27 +79,8 @@
 (load-theme 'spacegray t)
 (global-hl-line-mode 1)
 
-(require 'linum)
-(global-linum-mode 1)
-(setq linum-format 'dynamic)
-(defadvice linum-update-window (around linum-dynamic activate)
-  (let* ((w (length (number-to-string
-                     (count-lines (point-min) (point-max)))))
-         (linum-format (concat " %" (number-to-string w) "d ")))
-    ad-do-it))
-
-(require 'hlinum)
-(hlinum-activate)
 
 (fringe-mode -1)
-
-
-(require 'ido)
-(require 'ido-ubiquitous)
-(ido-mode)
-(ido-vertical-mode 1)
-(ido-ubiquitous-mode 1)
-(setq ido-enable-flex-matching t)
 
 (setq
  backup-by-copying t
@@ -143,46 +127,40 @@ Don't mess with special buffers."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ansi-color-faces-vector
+   [default bold shadow italic underline bold bold-italic bold])
  '(ansi-color-names-vector
    ["#242424" "#e5786d" "#95e454" "#cae682" "#8ac6f2" "#333366" "#ccaa8f" "#f6f3e8"])
  '(calendar-week-start-day 1)
  '(custom-safe-themes
    (quote
-    ("dd4db38519d2ad7eb9e2f30bc03fba61a7af49a185edfd44e020aa5345e3dca7" "5ee12d8250b0952deefc88814cf0672327d7ee70b16344372db9460e9a0e3ffc" "cf08ae4c26cacce2eebff39d129ea0a21c9d7bf70ea9b945588c1c66392578d1" "1157a4055504672be1df1232bed784ba575c60ab44d8e6c7b3800ae76b42f8bd" default)))
- '(ido-vertical-mode t)
- '(org-agenda-files (quote ("/Users/wfarr/Dropbox/org/gtd.org")))
- '(org-agenda-ndays 7)
- '(org-agenda-repeating-timestamp-show-all nil)
- '(org-agenda-restore-windows-after-quit t)
- '(org-agenda-show-all-dates t)
- '(org-agenda-skip-deadline-if-done t)
- '(org-agenda-skip-scheduled-if-done t)
- '(org-agenda-sorting-strategy
+	("146d24de1bb61ddfa64062c29b5ff57065552a7c4019bee5d869e938782dfc2a" "dd4db38519d2ad7eb9e2f30bc03fba61a7af49a185edfd44e020aa5345e3dca7" "5ee12d8250b0952deefc88814cf0672327d7ee70b16344372db9460e9a0e3ffc" "cf08ae4c26cacce2eebff39d129ea0a21c9d7bf70ea9b945588c1c66392578d1" "1157a4055504672be1df1232bed784ba575c60ab44d8e6c7b3800ae76b42f8bd" default)))
+ '(fci-rule-color "#343d46")
+ '(vc-annotate-background nil)
+ '(vc-annotate-color-map
    (quote
-    ((agenda time-up priority-down tag-up)
-     (todo tag-up))))
- '(org-agenda-start-on-weekday nil)
- '(org-agenda-todo-ignore-deadlines t)
- '(org-agenda-todo-ignore-scheduled t)
- '(org-agenda-todo-ignore-with-date t)
- '(org-agenda-window-setup (quote other-window))
- '(org-deadline-warning-days 7)
- '(org-fast-tag-selection-single-key nil)
- '(org-log-done (quote (done)))
- '(org-refile-targets
-   (quote
-    (("gtd.org" :maxlevel . 1)
-     ("someday.org" :level . 2))))
- '(org-reverse-note-order nil)
- '(org-tags-column -78)
- '(org-tags-match-list-sublevels nil)
- '(org-time-stamp-rounding-minutes 5)
- '(org-use-fast-todo-selection t)
- '(org-use-tag-inheritance nil)
- '(whitespace-space-regexp "\\(^ +\\| +$\\)")
+	((20 . "#bf616a")
+	 (40 . "#DCA432")
+	 (60 . "#ebcb8b")
+	 (80 . "#B4EB89")
+	 (100 . "#89EBCA")
+	 (120 . "#89AAEB")
+	 (140 . "#C189EB")
+	 (160 . "#bf616a")
+	 (180 . "#DCA432")
+	 (200 . "#ebcb8b")
+	 (220 . "#B4EB89")
+	 (240 . "#89EBCA")
+	 (260 . "#89AAEB")
+	 (280 . "#C189EB")
+	 (300 . "#bf616a")
+	 (320 . "#DCA432")
+	 (340 . "#ebcb8b")
+	 (360 . "#B4EB89"))))
+ '(vc-annotate-very-old-color nil)
  '(whitespace-style
    (quote
-    (face trailing lines-tail newline empty newline-mark indentation tab-mark space-mark))))
+	(face trailing lines-tail newline empty newline-mark indentation tab-mark space-mark))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -203,11 +181,55 @@ Don't mess with special buffers."
 
 (projectile-global-mode)
 
+(setq exec-path
+	  (append
+	   (list
+		 (format "%s/bin" (getenv "HOME"))
+		 (format "%s/go/bin" (getenv "HOME"))
+		 "/usr/local/bin"
+		 )
+	   exec-path
+	   ))
 
+(setenv "PATH"
+        (concat
+         (mapconcat
+          (lambda (s) s)
+          exec-path
+          ":")))
+
+(setenv "GOPATH" (getenv "HOME"))
+
+(if (executable-find "go")
+	(progn
+	  (unless (executable-find "godef")
+		(shell-command "go get -u code.google.com/p/rog-go/exp/cmd/godef"))
+	  (unless (executable-find "oracle")
+		(shell-command "go get code.google.com/p/go.tools/cmd/oracle"))
+	  (unless (executable-find "gocode")
+		(shell-command "go get -u github.com/nsf/gocode"))))
+
+(load-file "$GOPATH/src/code.google.com/p/go.tools/cmd/oracle/oracle.el")
 
 (add-hook 'go-mode-hook
           (lambda ()
-            (setq-default indent-tabs-mode 't)))
+			(require 'flycheck)
+			(flycheck-mode)
+
+			(setq-default indent-tabs-mode 't)
+
+			(go-eldoc-setup)
+			(go-oracle-mode)
+
+			(if (not (string-match "go" compile-command))
+				(set (make-local-variable 'compile-command)
+					 "go build -v && go vet &&  go test -v -coverprofile c.out && go tool cover -func c.out"))
+
+			(local-set-key (kbd "M-.") 'godef-jump)
+			(local-set-key (kbd "C-c C-c C-c") 'compile)
+
+			(setq-local compilation-read-command nil)
+			))
 
 
 (add-to-list 'load-path "enhanced-ruby-mode") ; must be added after any path containing old ruby-mode
@@ -221,7 +243,7 @@ Don't mess with special buffers."
 (setq projectile-enable-caching t)
 (setq projectile-completion-system 'grizzl)
 
-(global-set-key (kbd "s-t") 'projectile-find-file)
+(global-set-key (kbd "s-t") 'helm-projectile)
 (global-set-key (kbd "s-b") 'projectile-switch-to-buffer)
 
 (add-hook 'emacs-lisp-mode-hook
@@ -229,86 +251,20 @@ Don't mess with special buffers."
             (eldoc-mode)))
 
 (require 'auto-complete-config)
+
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/elpa/auto-complete-1.4/dict")
 (ac-config-default)
 
+(require 'go-autocomplete)
+
+;;(setq ac-delay nil)
 (setq ac-ignore-case nil)
-(setq ac-use-quick-help nil)
+(setq ac-use-fuzzy 't)
+(setq ac-use-quick-help 't)
+
+(add-to-list 'ac-modes 'go-mode)
 (add-to-list 'ac-modes 'enh-ruby-mode)
 (add-to-list 'ac-modes 'web-mode)
-
-(require 'powerline)
-(powerline-center-evil-theme)
-
-(setq rsense-home "/opt/boxen/homebrew/Cellar/rsense/0.3/libexec")
-(add-to-list 'load-path (concat rsense-home "/etc"))
-(require 'rsense)
-
-(add-hook 'enh-ruby-mode-hook
-          (lambda ()
-            (add-to-list 'ac-sources 'ac-source-rsense-method)
-            (add-to-list 'ac-sources 'ac-source-rsense-constant)))
-
-(require 'org)
-(add-hook 'org-mode-hook
-          (lambda ()
-            (progn
-              (require 'org-mac-link)
-              (setq org-use-fast-todo-selection t)
-              (setq org-use-fast-tag-selection t)
-              (setq org-log-done nil)
-              (setq org-agenda-include-diary nil)
-              (setq org-deadline-warning-days 7)
-              (setq org-timeline-show-empty-dates t)
-              (setq org-insert-mode-line-in-empty-file t)
-
-              (define-key org-mode-map (kbd "C-c g") 'org-mac-grab-link))))
-
-(define-key global-map "\C-cl" 'org-store-link)
-(define-key global-map "\C-ca" 'org-agenda)
-
-
-(setq org-directory "/Users/wfarr/Dropbox/org/")
-(setq org-default-notes-file (concat org-directory "notes.org"))
-
-(setq org-capture-templates
-      '(("g" "GitHub Task" entry (file+olp (concat org-directory "gtd.org") "TASKS" "GitHub")
-         "* TODO %^{Brief Description} %^g\n%?\nAdded: %U" :clock-resume :kill-buffer :empty-lines 1)
-        ("t" "Todo" entry (file+headline (concat org-directory "gtd.org") "TASKS")
-         "* TODO %^{Brief Description} %^g\n%?\nAdded: %U" :clock-resume :kill-buffer :empty-lines 1 :prepend)))
-
-
-(define-key global-map "\C-cr" 'org-capture)
-
-(setq org-agenda-custom-commands
-'(
-
-  ("P" "Projects"
-   ((tags "PROJECT")))
-
-  ("H" "Office and Home Lists"
-   ((agenda)
-    (tags-todo "OFFICE")
-    (tags-todo "HOME")
-    (tags-todo "COMPUTER")
-    (tags-todo "TALKS")
-    (tags-todo "READING")))
-
-  ("D" "Daily Action List"
-   ((agenda "" ((org-agenda-ndays 1)
-                (org-agenda-sorting-strategy
-                 (quote ((agenda time-up priority-down tag-up))))
-                (org-deadline-warning-days 0)))))))
-
-(defun wfarr-org-archive-done ()
-  (interactive)
-  (org-map-entries 'org-archive-subtree "/DONE" 'file))
-
-(defun gtd ()
-  (interactive)
-  (find-file "/Users/wfarr/Dropbox/org/gtd.org"))
-
-(global-set-key (kbd "C-c g") 'gtd)
 
 (add-hook 'before-save-hook
           (lambda ()
@@ -318,5 +274,8 @@ Don't mess with special buffers."
                            (y-or-n-p (format "Directory %s does not exist. Create it?" dir)))
                   (make-directory dir t))))))
 
-(require 'evil)
-(evil-mode)
+(require 'helm-config)
+(helm-mode 1)
+
+;; (require 'evil)
+;; (evil-mode)
