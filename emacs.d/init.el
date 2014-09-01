@@ -35,8 +35,8 @@
 (defvar my-packages
   '(
     ;; behavior-altering packages
-	auto-complete
-	flycheck
+    auto-complete
+    flycheck
     helm
     helm-ack
     helm-projectile
@@ -57,8 +57,8 @@
 
     ;; go-related packages
     go-mode
-	go-autocomplete
-	go-eldoc
+    go-autocomplete
+    go-eldoc
 
     ;; misc mode packages
     coffee-mode
@@ -266,8 +266,6 @@ Don't mess with special buffers."
 
 (require 'go-mode)
 (require 'auto-complete-config)
-
-(require 'go-autocomplete)
 
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/elpa/auto-complete-1.4/dict")
 (ac-config-default)
