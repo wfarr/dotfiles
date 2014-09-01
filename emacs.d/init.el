@@ -51,11 +51,13 @@
     json
 
     ;;themes
+    base16-theme
     zenburn-theme
     spacegray-theme
 
     ;; go-related packages
     go-mode
+	go-autocomplete
 	go-eldoc
 
     ;; misc mode packages
@@ -76,8 +78,9 @@
 
 ;;(load-theme 'zenburn t)
 ;;(load-theme 'wombat t)
-(load-theme 'spacegray t)
-(global-hl-line-mode 1)
+;;(load-theme 'spacegray t)
+;;(global-hl-line-mode -1)
+(load-them 'base16-tomorrow t)
 
 
 (fringe-mode -1)
@@ -131,36 +134,38 @@ Don't mess with special buffers."
    [default bold shadow italic underline bold bold-italic bold])
  '(ansi-color-names-vector
    ["#242424" "#e5786d" "#95e454" "#cae682" "#8ac6f2" "#333366" "#ccaa8f" "#f6f3e8"])
+ '(ansi-term-color-vector
+   [unspecified "#202020" "#fb9fb1" "#acc267" "#ddb26f" "#6fc2ef" "#e1a3ee" "#6fc2ef" "#e0e0e0"])
  '(calendar-week-start-day 1)
  '(custom-safe-themes
    (quote
-	("146d24de1bb61ddfa64062c29b5ff57065552a7c4019bee5d869e938782dfc2a" "dd4db38519d2ad7eb9e2f30bc03fba61a7af49a185edfd44e020aa5345e3dca7" "5ee12d8250b0952deefc88814cf0672327d7ee70b16344372db9460e9a0e3ffc" "cf08ae4c26cacce2eebff39d129ea0a21c9d7bf70ea9b945588c1c66392578d1" "1157a4055504672be1df1232bed784ba575c60ab44d8e6c7b3800ae76b42f8bd" default)))
+    ("51bea7765ddaee2aac2983fac8099ec7d62dff47b708aa3595ad29899e9e9e44" "9bac44c2b4dfbb723906b8c491ec06801feb57aa60448d047dbfdbd1a8650897" "e53cc4144192bb4e4ed10a3fa3e7442cae4c3d231df8822f6c02f1220a0d259a" "53e29ea3d0251198924328fd943d6ead860e9f47af8d22f0b764d11168455a8e" "9e7e1bd71ca102fcfc2646520bb2f25203544e7cc464a30c1cbd1385c65898f4" "146d24de1bb61ddfa64062c29b5ff57065552a7c4019bee5d869e938782dfc2a" "dd4db38519d2ad7eb9e2f30bc03fba61a7af49a185edfd44e020aa5345e3dca7" "5ee12d8250b0952deefc88814cf0672327d7ee70b16344372db9460e9a0e3ffc" "cf08ae4c26cacce2eebff39d129ea0a21c9d7bf70ea9b945588c1c66392578d1" "1157a4055504672be1df1232bed784ba575c60ab44d8e6c7b3800ae76b42f8bd" default)))
  '(fci-rule-color "#343d46")
  '(vc-annotate-background nil)
  '(vc-annotate-color-map
    (quote
-	((20 . "#bf616a")
-	 (40 . "#DCA432")
-	 (60 . "#ebcb8b")
-	 (80 . "#B4EB89")
-	 (100 . "#89EBCA")
-	 (120 . "#89AAEB")
-	 (140 . "#C189EB")
-	 (160 . "#bf616a")
-	 (180 . "#DCA432")
-	 (200 . "#ebcb8b")
-	 (220 . "#B4EB89")
-	 (240 . "#89EBCA")
-	 (260 . "#89AAEB")
-	 (280 . "#C189EB")
-	 (300 . "#bf616a")
-	 (320 . "#DCA432")
-	 (340 . "#ebcb8b")
-	 (360 . "#B4EB89"))))
+    ((20 . "#bf616a")
+     (40 . "#DCA432")
+     (60 . "#ebcb8b")
+     (80 . "#B4EB89")
+     (100 . "#89EBCA")
+     (120 . "#89AAEB")
+     (140 . "#C189EB")
+     (160 . "#bf616a")
+     (180 . "#DCA432")
+     (200 . "#ebcb8b")
+     (220 . "#B4EB89")
+     (240 . "#89EBCA")
+     (260 . "#89AAEB")
+     (280 . "#C189EB")
+     (300 . "#bf616a")
+     (320 . "#DCA432")
+     (340 . "#ebcb8b")
+     (360 . "#B4EB89"))))
  '(vc-annotate-very-old-color nil)
  '(whitespace-style
    (quote
-	(face trailing lines-tail newline empty newline-mark indentation tab-mark space-mark))))
+    (face trailing lines-tail newline empty newline-mark indentation tab-mark space-mark))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -169,7 +174,7 @@ Don't mess with special buffers."
  )
 
 ;;(setq default-frame-alist '((background-color . "#27292C")))
-;;(set-background-color "#27292C")
+(set-background-color "#1d1f21")
 
 (setq mac-allow-anti-aliasing 't)
 
@@ -230,6 +235,8 @@ Don't mess with special buffers."
 			(local-set-key (kbd "C-c C-c C-c") 'compile)
 
 			(setq-local compilation-read-command nil)
+
+			(add-hook 'before-save-hook 'gofmt-before-save)
 			))
 
 
@@ -277,6 +284,18 @@ Don't mess with special buffers."
                 (when (and (not (file-exists-p dir))
                            (y-or-n-p (format "Directory %s does not exist. Create it?" dir)))
                   (make-directory dir t))))))
+
+(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
+
+(unless (require 'el-get nil 'noerror)
+  (with-current-buffer
+      (url-retrieve-synchronously
+       "https://raw.github.com/dimitri/el-get/master/el-get-install.el")
+    (goto-char (point-max))
+    (eval-print-last-sexp)))
+
+(add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
+(el-get 'sync)
 
 (require 'helm-config)
 (helm-mode 1)
