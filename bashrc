@@ -54,6 +54,23 @@ function synced-git-branch {
   fi
 }
 
+# Wrap ssh commmand to allow smart pane behavior in tmux.
+#
+# Lifted from https://github.com/moonboots/tmux-ssh/blob/master/tmux-sshrc
+#
+# After opening a tmux window and ssh-ing into another server, new panes will
+# open already ssh-ed to the server.
+function ssh() {
+  if [ -n "$TMUX" ]; then
+    window_name=$(tmux display-message -p '#W')
+    tmux rename-window $*
+    /usr/bin/ssh $*
+    tmux rename-window $window_name
+  else
+    /usr/bin/ssh $*
+  fi
+}
+
 test -f ~/.secrets.sh && source ~/.secrets.sh
 
 export PS1="\w ruby:\$(current-ruby) git:\$(current-git-branch) » "
