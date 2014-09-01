@@ -80,7 +80,7 @@
 ;;(load-theme 'wombat t)
 ;;(load-theme 'spacegray t)
 ;;(global-hl-line-mode -1)
-(load-them 'base16-tomorrow t)
+(load-theme 'base16-tomorrow t)
 
 
 (fringe-mode -1)
@@ -208,6 +208,12 @@ Don't mess with special buffers."
 
 (if (executable-find "go")
 	(progn
+      (unless (file-directory-p (concat (getenv "GOPATH") "/src/code.google.com/p/go.tools/cmd/vet"))
+        (shell-command "go get -u code.google.com/p/go.tools/cmd/vet"))
+      (unless (file-directory-p (concat (getenv "GOPATH") "/src/code.google.com/p/go.tools/godoc"))
+        (shell-command "go get -u code.google.com/p/go.tools/godoc"))
+      (unless (executable-find "golint")
+        (shell-command "go get -u code.google.com/p/go.tools/cmd/golint"))
 	  (unless (executable-find "godef")
 		(shell-command "go get -u code.google.com/p/rog-go/exp/cmd/godef"))
 	  (unless (executable-find "oracle")
