@@ -83,7 +83,12 @@
 (load-theme 'base16-tomorrow t)
 
 
-(fringe-mode -1)
+(setq default-frame-alist '((background-color . "#1d1f21")))
+(set-background-color "#1d1f21")
+
+(setq mac-allow-anti-aliasing 't)
+
+(fringe-mode 0)
 
 (setq
  backup-by-copying t
@@ -173,11 +178,6 @@ Don't mess with special buffers."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-
-;;(setq default-frame-alist '((background-color . "#27292C")))
-(set-background-color "#1d1f21")
-
-(setq mac-allow-anti-aliasing 't)
 
 (setq-default indent-tabs-mode nil
               tab-width 4)
