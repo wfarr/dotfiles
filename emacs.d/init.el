@@ -305,5 +305,7 @@ Don't mess with special buffers."
 (require 'helm-config)
 (helm-mode 1)
 
+(setq helm-buffers-fuzzy-matching 't)
+
 ;; (require 'evil)
 ;; (evil-mode)
