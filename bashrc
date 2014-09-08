@@ -63,7 +63,7 @@ function synced-git-branch {
 function ssh() {
   if [ -n "$TMUX" ]; then
     window_name=$(tmux display-message -p '#W')
-    tmux rename-window $*
+    tmux rename-window $1
     /usr/bin/ssh $*
     tmux rename-window $window_name
   else
