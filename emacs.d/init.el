@@ -344,3 +344,8 @@ Don't mess with special buffers."
 (mac-global-set-key-with-modifier "t" 'helm-projectile)
 (mac-global-set-key-with-modifier "b" 'helm-buffer-list)
 (mac-global-set-key-with-modifier "g" 'magit-status)
+
+(defun fullscreen ()
+ (interactive)
+ (set-frame-parameter nil 'fullscreen
+              (if (frame-parameter nil 'fullscreen) nil 'fullboth)))
