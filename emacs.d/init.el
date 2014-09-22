@@ -186,6 +186,7 @@ Don't mess with special buffers."
               c-default-style "linux")
 
 (projectile-global-mode)
+(setq projectile-enable-caching nil)
 
 
 (setq exec-path
@@ -257,9 +258,6 @@ Don't mess with special buffers."
 
 (setq projectile-enable-caching t)
 (setq projectile-completion-system 'grizzl)
-
-(global-set-key (kbd "s-t") 'helm-projectile)
-(global-set-key (kbd "s-b") 'projectile-switch-to-buffer)
 
 (add-hook 'emacs-lisp-mode-hook
           (lambda ()
