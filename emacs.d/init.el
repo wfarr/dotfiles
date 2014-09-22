@@ -323,20 +323,24 @@ Don't mess with special buffers."
       (setq mac-command-modifier 'meta))))
 
 
+(defun mac-global-set-key-with-modifier (key command)
+  "Bind a key, but do auto-translation of super/hyper as appropriate"
+  (if (boundp 'mac-mouse-wheel-mode)
+      (global-set-key (kbd (concat "H-" key)) command)
+    (global-set-key (kbd (concat "s-" key)) command)))
+
 (if (boundp 'mac-mouse-wheel-mode)
     (progn
-      (global-set-key [(hyper a)] 'mark-whole-buffer)
-      (global-set-key [(hyper v)] 'yank)
-      (global-set-key [(hyper c)] 'kill-ring-save)
-      (global-set-key [(hyper s)] 'save-buffer)
-      (global-set-key [(hyper l)] 'goto-line)
-      (global-set-key [(hyper w)]
-                      (lambda () (interactive) (delete-window)))
-      (global-set-key [(hyper z)] 'undo)
+      (mac-switch-meta)
+      (mac-mouse-wheel-mode)))
 
-      (global-set-key (kbd "H-t") 'helm-projectile)
-      (global-set-key (kbd "H-b") 'projectile-switch-to-buffer)
-      (mac-mouse-wheel-mode))
-  (progn
-    (global-set-key (kbd "s-t") 'helm-projectile)
-    (global-set-key (kbd "s-b") 'projectile-switch-to-buffer)))
+(mac-global-set-key-with-modifier "a" 'mark-whole-buffer)
+(mac-global-set-key-with-modifier "v" 'yank)
+(mac-global-set-key-with-modifier "c" 'kill-ring-save)
+(mac-global-set-key-with-modifier "s" 'save-buffer)
+(mac-global-set-key-with-modifier "l" 'goto-line)
+(mac-global-set-key-with-modifier "w" (lambda () (interactive) (delete-window)))
+(mac-global-set-key-with-modifier "z" 'undo)
+(mac-global-set-key-with-modifier "t" 'helm-projectile)
+(mac-global-set-key-with-modifier "b" 'helm-buffer-list)
+(mac-global-set-key-with-modifier "g" 'magit-status)
