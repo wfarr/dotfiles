@@ -14,7 +14,7 @@
 (setq ns-use-srgb-colorspace t)
 
 (let ((default-directory "~/.emacs.d/"))
-  (normal-top-level-add-to-load-path '("base16" "enhanced-ruby-mode" "powerline")))
+  (normal-top-level-add-to-load-path '("base16" "enhanced-ruby-mode" "powerline" "smyx")))
 
 ;;(require 'base16-chalk-theme)
 
@@ -80,7 +80,9 @@
 ;;(load-theme 'wombat t)
 ;;(load-theme 'spacegray t)
 ;;(global-hl-line-mode -1)
-(load-theme 'base16-tomorrow t)
+;;(load-theme 'base16-tomorrow t)
+(require 'smyx-theme)
+(load-theme 'smyx t)
 
 
 (setq default-frame-alist '((background-color . "#1d1f21")))
