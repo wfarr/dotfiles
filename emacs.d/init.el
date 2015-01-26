@@ -49,6 +49,7 @@
     grizzl
     highlight-indentation
     json
+    org-page
 
     ;;themes
     base16-theme
@@ -351,3 +352,12 @@ Don't mess with special buffers."
  (interactive)
  (set-frame-parameter nil 'fullscreen
               (if (frame-parameter nil 'fullscreen) nil 'fullboth)))
+
+(require 'org-page)
+(setq op/repository-directory (concat (getenv "HOME") "/src/github.com/wfarr/wfarr.github.com"))
+(setq op/site-domain "http://willfarrington.com/")
+(setq op/site-main-title "wfarr")
+(setq op/site-sub-title "is short for Will Farrington")
+(setq op/personal-github-link "https://github.com/wfarr")
+
+(file-directory-p op/repository-directory)
