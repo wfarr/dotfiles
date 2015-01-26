@@ -75,3 +75,16 @@ test -f ~/.secrets.sh && source ~/.secrets.sh
 
 export PS1="\w ruby:\$(current-ruby) git:\$(current-git-branch) » "
 export VAGRANT_DEFAULT_PROVIDER=vmware_fusion
+
+function chefdk() {
+  eval "$(chef shell-init $(basename ${SHELL}))"
+}
+
+# Evaluate system PATH
+if [ -x /usr/libexec/path_helper ]; then
+    eval `/usr/libexec/path_helper -s`
+fi
+
+if [ -x /usr/local/bin/boot2docker ]; then
+    eval "$(boot2docker shellinit 2>/dev/null)"
+fi
