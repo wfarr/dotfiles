@@ -3,3 +3,15 @@ emacs.d/ac-comphist.dat
 emacs.d/projectile-bookmarks.eld
 emacs.d/projectile.cache
 /emacs.d/ido.last
+
+*.elc
+
+emacs.d/el-get/.loaddefs.el
+
+emacs.d/games/tetris-scores
+
+emacs.d/el-get/el-get/
+
+emacs.d/el-get/.status.el.old
+
+emacs.d/el-get/.status.el
