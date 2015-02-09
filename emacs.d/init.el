@@ -328,9 +328,9 @@ Don't mess with special buffers."
 
 (defun mac-global-set-key-with-modifier (key command)
   "Bind a key, but do auto-translation of super/hyper as appropriate"
-  (if (boundp 'mac-mouse-wheel-mode)
+  (if (eq mac-option-modifier 'hyper)
       (global-set-key (kbd (concat "H-" key)) command)
-    (global-set-key (kbd (concat "s-" key)) command)))
+    (global-set-key (kbd (concat "M-" key)) command)))
 
 (if (boundp 'mac-mouse-wheel-mode)
     (progn
