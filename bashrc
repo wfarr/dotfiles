@@ -5,13 +5,9 @@ export PATH=$HOME/bin:$PATH
 export PATH=$PATH:~/pkg/bin:~/pkg/sbin
 export MANPATH=$MANPATH:~/pkg/man
 
-#if [ -d /opt/boxen ]; then
-#  source /opt/boxen/env.sh
-#fi
-
-for script in $(find ~/.do-setup/env.d -type f); do
-  source $script
-done
+if [ -f $HOME/.the-setup/env.sh ]; then
+  source $HOME/.the-setup/env.sh 
+fi
 
 export PATH=/usr/local/packer:$PATH
 
@@ -30,7 +26,6 @@ RESET="\[\e[m\]"
 
 export PATH=/usr/texbin:$PATH
 
-export GOROOT=~/go
 export GOPATH=$HOME
 export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 
