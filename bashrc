@@ -84,3 +84,7 @@ fi
 if [ -x /usr/local/bin/boot2docker ]; then
     eval "$(boot2docker shellinit 2>/dev/null)"
 fi
+
+for f in /Users/wfarr/.secrets/*.sh; do
+  source $f
+done
