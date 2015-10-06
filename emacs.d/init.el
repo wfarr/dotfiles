@@ -211,22 +211,22 @@ Don't mess with special buffers."
 
 (setenv "GOPATH" (getenv "HOME"))
 
-(if (executable-find "go")
-	(progn
-      (unless (file-directory-p (concat (getenv "GOPATH") "/src/code.google.com/p/go.tools/cmd/vet"))
-        (shell-command "go get -u code.google.com/p/go.tools/cmd/vet"))
-      (unless (file-directory-p (concat (getenv "GOPATH") "/src/code.google.com/p/go.tools/godoc"))
-        (shell-command "go get -u code.google.com/p/go.tools/godoc"))
-      (unless (executable-find "golint")
-        (shell-command "go get -u code.google.com/p/go.tools/cmd/golint"))
-	  (unless (executable-find "godef")
-		(shell-command "go get -u code.google.com/p/rog-go/exp/cmd/godef"))
-	  (unless (executable-find "oracle")
-		(shell-command "go get code.google.com/p/go.tools/cmd/oracle"))
-	  (unless (executable-find "gocode")
-		(shell-command "go get -u github.com/nsf/gocode"))))
+;; (if (executable-find "go")
+;; 	(progn
+;;       (unless (file-directory-p (concat (getenv "GOPATH") "/src/code.google.com/p/go.tools/cmd/vet"))
+;;         (shell-command "go get -u code.google.com/p/go.tools/cmd/vet"))
+;;       (unless (file-directory-p (concat (getenv "GOPATH") "/src/code.google.com/p/go.tools/godoc"))
+;;         (shell-command "go get -u code.google.com/p/go.tools/godoc"))
+;;       (unless (executable-find "golint")
+;;         (shell-command "go get -u code.google.com/p/go.tools/cmd/golint"))
+;; 	  (unless (executable-find "godef")
+;; 		(shell-command "go get -u code.google.com/p/rog-go/exp/cmd/godef"))
+;; 	  (unless (executable-find "oracle")
+;; 		(shell-command "go get code.google.com/p/go.tools/cmd/oracle"))
+;; 	  (unless (executable-find "gocode")
+;; 		(shell-command "go get -u github.com/nsf/gocode"))))
 
-(load-file "$GOPATH/src/code.google.com/p/go.tools/cmd/oracle/oracle.el")
+;;(load-file "$GOPATH/src/code.google.com/p/go.tools/cmd/oracle/oracle.el")
 
 (add-hook 'go-mode-hook
           (lambda ()
@@ -234,19 +234,19 @@ Don't mess with special buffers."
 			(flycheck-mode)
 
 			(setq-default indent-tabs-mode 't)
-
-			(go-eldoc-setup)
-			(go-oracle-mode)
-
-			(if (not (string-match "go" compile-command))
-				(set (make-local-variable 'compile-command)
-					 "go build -v && go vet &&  go test -v -coverprofile c.out && go tool cover -func c.out"))
-
-			(local-set-key (kbd "M-.") 'godef-jump)
-			(local-set-key (kbd "C-c C-c C-c") 'compile)
-
-			(setq-local compilation-read-command nil)
-
+;; 
+;; 			(go-eldoc-setup)
+;; 			(go-oracle-mode)
+;; 
+;; 			(if (not (string-match "go" compile-command))
+;; 				(set (make-local-variable 'compile-command)
+;; 					 "go build -v && go vet &&  go test -v -coverprofile c.out && go tool cover -func c.out"))
+;; 
+;; 			(local-set-key (kbd "M-.") 'godef-jump)
+;; 			(local-set-key (kbd "C-c C-c C-c") 'compile)
+;; 
+;; 			(setq-local compilation-read-command nil)
+;; 
 			(add-hook 'before-save-hook 'gofmt-before-save)
 			))
 
