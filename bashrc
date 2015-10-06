@@ -30,9 +30,10 @@ export GOPATH=$HOME
 export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 
 alias emacs="open -a /Applications/Emacs.app $@"
+alias git="hub"
 
 function current-git-branch {
-  branch="$(git rev-parse --abbrev-ref HEAD 2>/dev/null)"
+  branch="$(/usr/bin/git rev-parse --abbrev-ref HEAD 2>/dev/null)"
 
   if [ -n "$branch" ]; then
     echo "${branch}"
