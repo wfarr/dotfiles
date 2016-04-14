@@ -26,6 +26,7 @@ RESET="\[\e[m\]"
 
 export PATH=/usr/texbin:$PATH
 
+export GOROOT=/usr/local/go
 export GOPATH=$HOME
 export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 
