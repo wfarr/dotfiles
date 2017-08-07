@@ -4,6 +4,11 @@ set -eux
 
 root=$(cd $(dirname $0)/.. && pwd)
 
+if (hostname -f | grep salesforce.com >/dev/null); then
+  ln -svf $root/sfdc/gitconfig $HOME/.gitconfig
+else
+  ln -svf $root/gitconfig $HOME/.gitconfig
+fi
+
 ln -svf $root/bashrc $HOME/.bashrc
 ln -svf $root/bash_profile $HOME/.bash_profile
-ln -svf $root/gitconfig $HOME/.gitconfig

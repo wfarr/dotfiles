@@ -1,0 +1,30 @@
+[alias]
+	st = status --short --branch
+	lp = log --patch
+	dc = diff --cached
+	co = checkout
+	ci = commit
+	di = diff
+	ack = grep --break --heading --line-number
+
+[color]
+	ui = true
+	[grep]
+		filename = bold green
+		match = black yellow
+
+[user]
+	name = Will Farrington
+	email = wfarrington@heroku.com
+
+[github]
+	user = wfarr
+
+[push]
+	default = simple
+
+[credential]
+	helper = osxkeychain
+
+[hub]
+	protocol = https
