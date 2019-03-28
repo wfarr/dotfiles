@@ -6,6 +6,8 @@
 	ci = commit
 	di = diff
 	ack = grep --break --heading --line-number
+	current-branch = rev-parse --abbrev-ref HEAD
+	pb = "!git push -u origin $(git current-branch)"
 
 [color]
 	ui = true
