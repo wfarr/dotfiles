@@ -12,3 +12,4 @@ fi
 
 ln -svf $root/bashrc $HOME/.bashrc
 ln -svf $root/bash_profile $HOME/.bash_profile
+ln -svf $root/fish $HOME/.config/fish

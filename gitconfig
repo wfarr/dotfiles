@@ -18,6 +18,7 @@
 [user]
 	name = Will Farrington
 	email = wcfarrington@gmail.com
+	signingkey = 0xB311E8750E8A3D4D
 
 [github]
 	user = wfarr
@@ -30,3 +31,17 @@
 
 [hub]
 	protocol = https
+[commit]
+	gpgSign = true
+[gpg]
+	program = /usr/local/bin/krgpg
+[tag]
+	forceSignAnnotated = true
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+
+[url "https://github.com/apache/"]
+	insteadOf = "https://git.apache.org/"

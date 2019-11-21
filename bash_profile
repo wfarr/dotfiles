@@ -10,3 +10,5 @@ if [ "${TERM}" != "dumb" ]; then
 
   export PS1="${PIN}${CYAN}\w ${BLUE}git:${GREEN}\$(current-git-branch)${RESET} ${GREY}»${RESET} "
 fi
+
+export PATH="$HOME/.cargo/bin:$PATH"
