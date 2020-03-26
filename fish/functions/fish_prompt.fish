@@ -63,6 +63,7 @@ function fish_prompt --description 'Write out the prompt'
     set -l color_cwd
     set -l prefix
     set -l suffix
+
     switch "$USER"
         case root toor
             if set -q fish_color_cwd_root
@@ -83,13 +84,15 @@ function fish_prompt --description 'Write out the prompt'
 
     # cloud
     set_color purple
-    set _heroku_cloud $HEROKU_CLOUD "default"
+    set -l _heroku_cloud $HEROKU_CLOUD
+    set -q HEROKU_CLOUD || set -l _heroku_cloud "default"
     printf ' heroku:%s' $_heroku_cloud
     set_color normal
 
     # ruby version
     set_color red
-    set _ruby_version $RUBY_VERSION "system"
+    set -l _ruby_version $RUBY_VERSION
+    set -q RUBY_VERSION || set -l _ruby_version "system"
     printf ' ruby:%s' $_ruby_version
     set_color normal
 

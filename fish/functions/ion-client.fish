@@ -1,0 +1,1 @@
+alias ic="ion-client"

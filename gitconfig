@@ -18,6 +18,7 @@
 [user]
 	name = Will Farrington
 	email = wcfarrington@gmail.com
+	#signingkey = 0xB311E8750E8A3D4D
 	signingkey = 0xB311E8750E8A3D4D
 
 [github]
@@ -33,8 +34,8 @@
 	protocol = https
 [commit]
 	gpgSign = true
-[gpg]
-	program = /usr/local/bin/krgpg
+#[gpg]
+#	program = /usr/local/bin/krgpg
 [tag]
 	forceSignAnnotated = true
 [filter "lfs"]
