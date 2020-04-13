@@ -54,7 +54,7 @@ function cloud
       set -xg ION_HOST ion-staging.herokai.com
       set -xg HEROKU_HOST staging.herokudev.com
       set -xg HEROKU_APPDOMAIN staging.herokuappdev.com
-      set -xg HEROKU_LOGIN_HOST https://heroku-cli-auth-staging.herokuapp.com
+      set -xg HEROKU_LOGIN_HOST https://auth-staging-cloud.herokai.com
     case eu-west-1-a, eu
       _cloud_reset
       set -xg HEROKU_CLOUD eu-west-1-a
