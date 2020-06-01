@@ -14,4 +14,6 @@ gpgconf --launch gpg-agent
 set -g fish_user_paths "/usr/local/sbin" $fish_user_paths
 set -g fish_user_paths "$HOME/go/bin" $fish_user_paths
 
+alias vim=nvim
+
 starship init fish | source
