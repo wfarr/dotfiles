@@ -1,3 +1,9 @@
+# Set the emoji width for iTerm
+set -g fish_emoji_width 2
+
+# Hide the fish greeting
+set fish_greeting ""
+
 source /usr/local/share/chruby/chruby.fish
 source /usr/local/share/chruby/auto.fish
 
