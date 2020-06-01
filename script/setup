@@ -14,4 +14,3 @@ ln -svf $root/bashrc $HOME/.bashrc
 ln -svf $root/bash_profile $HOME/.bash_profile
 ln -svf $root/fish $HOME/.config/fish
 ln -svf $root/nvim $HOME/.config/nvim
-ln -svf $root/init.vim $HOME/.config/init.vim
