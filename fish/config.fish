@@ -13,4 +13,6 @@ set -g fish_user_paths "$HOME/go/bin" $fish_user_paths
 
 alias vim=nvim
 
+set -x EDITOR "nvim"
+
 starship init fish | source
