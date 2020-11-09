@@ -45,3 +45,5 @@
 
 [url "https://github.com/apache/"]
 	insteadOf = "https://git.apache.org/"
+[init]
+	defaultBranch = main
