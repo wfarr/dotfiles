@@ -16,4 +16,6 @@ export VAGRANT_VM_MEMORY=16384
 
 alias vim=nvim
 
+set -x EDITOR "nvim"
+
 starship init fish | source
