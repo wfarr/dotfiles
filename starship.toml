@@ -10,8 +10,7 @@ fish_style_pwd_dir_length = 1
 variable = "HEROKU_CLOUD"
 default = "default"
 disabled = false
-prefix = "heroku:"
-style = "bold purple"
+format = "[heroku:$env_value](bold purple) "
 
 [git_commit]
 disabled = true
