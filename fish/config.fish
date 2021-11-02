@@ -10,6 +10,7 @@ gpgconf --launch gpg-agent
 
 set -g fish_user_paths "/usr/local/sbin" $fish_user_paths
 set -g fish_user_paths "$HOME/go/bin" $fish_user_paths
+set -g fish_user_paths "$HOME/.cargo/bin" $fish_user_paths
 
 export VAGRANT_VM_CPUS=8
 export VAGRANT_VM_MEMORY=16384

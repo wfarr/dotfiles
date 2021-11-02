@@ -31,10 +31,10 @@
 
 [hub]
 	protocol = https
-[commit]
-	gpgSign = true
-[gpg]
-	program = /usr/local/bin/krgpg
+#[commit]
+#	gpgSign = true
+#[gpg]
+#	program = /usr/local/bin/krgpg
 [tag]
 	forceSignAnnotated = true
 [filter "lfs"]

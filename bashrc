@@ -48,3 +48,6 @@ for f in path completion; do
   fqp="/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/${f}.bash.inc"
   test -f $fqp && source $fqp
 done
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+. "$HOME/.cargo/env"
