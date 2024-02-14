@@ -5,7 +5,7 @@ set -g fish_emoji_width 2
 set fish_greeting ""
 
 
-if (uname -m | grep arm64 >/dev/null); then
+if uname -m | grep -q "arm64" >/dev/null
   set -g fish_user_paths "/opt/homebrew/bin" $fish_user_paths
   set -g fish_user_paths "/opt/homebrew/sbin" $fish_user_paths
 else
