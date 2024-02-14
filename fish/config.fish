@@ -5,8 +5,12 @@ set -g fish_emoji_width 2
 set fish_greeting ""
 
 
-set -g fish_user_paths "/opt/homebrew/bin" $fish_user_paths
-set -g fish_user_paths "/opt/homebrew/sbin" $fish_user_paths
+if (uname -m | grep arm64 >/dev/null); then
+  set -g fish_user_paths "/opt/homebrew/bin" $fish_user_paths
+  set -g fish_user_paths "/opt/homebrew/sbin" $fish_user_paths
+else
+  set -g fish_user_paths "/usr/local/sbin" $fish_user_paths
+end
 
 set -g fish_user_paths "/usr/local/sbin" $fish_user_paths
 set -g fish_user_paths "$HOME/go/bin" $fish_user_paths
