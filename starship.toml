@@ -6,17 +6,11 @@ us-east-1 = "va"
 truncation_length = 1
 fish_style_pwd_dir_length = 1
 
-[env_var]
-variable = "HEROKU_CLOUD"
-default = "default"
-disabled = false
-format = "[heroku:$env_value](bold purple) "
-
 [git_commit]
-disabled = true
+disabled = false
 
 [golang]
-disabled = true
+disabled = false
 
 [kubernetes]
 disabled = false
