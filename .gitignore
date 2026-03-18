@@ -15,3 +15,5 @@ emacs.d/el-get/el-get/
 emacs.d/el-get/.status.el.old
 
 emacs.d/el-get/.status.el
+
+/jj/repos/*
