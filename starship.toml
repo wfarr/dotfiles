@@ -1,10 +1,21 @@
-[aws.region_aliases]
-eu-west-1 = "ie"
-us-east-1 = "va"
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+[aws]
+disabled = true
+
+[azure]
+disabled = true
 
 [directory]
 truncation_length = 1
 fish_style_pwd_dir_length = 1
+
+[docker_context]
+disabled = true
+
+[gcloud]
+disabled = true
 
 [git_commit]
 disabled = false
@@ -13,10 +24,16 @@ disabled = false
 disabled = false
 
 [kubernetes]
-disabled = false
+disabled = true
 
 [terraform]
-disabled = false
+disabled = true
+
+[ruby]
+disabled = true
+
+[nodejs]
+disabled = true
 
 [time]
 disabled = false
