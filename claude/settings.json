@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": []
+  },
+  "hooks": {
+    "WorktreeCreate": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "input=$(cat); name=$(echo \"$input\" | jq -r '.name'); cwd=$(echo \"$input\" | jq -r '.cwd'); mkdir -p \"$cwd/.claude/worktrees\" && jj workspace add \"$cwd/.claude/worktrees/$name\" >/dev/null 2>&1 && echo \"$cwd/.claude/worktrees/$name\""
+          }
+        ]
+      }
+    ],
+    "WorktreeRemove": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "input=$(cat); wt=$(echo \"$input\" | jq -r '.worktree_path'); jj workspace forget \"$wt\" 2>/dev/null; rm -rf \"$wt\""
+          }
+        ]
+      }
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "bash ~/.claude/statusline-jj.sh"
+  },
+  "alwaysThinkingEnabled": true,
+  "feedbackSurveyState": {
+    "lastShownTime": 1754084709167
+  },
+  "allowedTools": [
+    "mcp__linear-server__list_issues",
+    "mcp__linear-server__get_issue",
+    "mcp__linear-server__create_issue",
+    "mcp__linear-server__update_issue",
+    "mcp__linear-server__get_team",
+    "mcp__linear-server__list_cycles",
+    "Bash(jj *)",
+    "Bash(grep *)",
+    "Bash(ls *)",
+    "Bash(docker info*)",
+    "Bash(docker compose *)",
+    "Bash(docker volume *)",
+    "Bash(op inject *)",
+    "Bash(ruby -e *)",
+    "Bash(lsof *)",
+    "Bash(test -d *)",
+    "Bash(pwd*)",
+    "Bash(dirname *)",
+    "Bash(basename *)",
+    "mcp__github__add_comment_to_pending_review",
+    "mcp__github__add_issue_comment",
+    "mcp__github__assign_copilot_to_issue",
+    "mcp__github__create_branch",
+    "mcp__github__create_or_update_file",
+    "mcp__github__create_pull_request",
+    "mcp__github__create_repository",
+    "mcp__github__delete_file",
+    "mcp__github__fork_repository",
+    "mcp__github__get_commit",
+    "mcp__github__get_file_contents",
+    "mcp__github__get_label",
+    "mcp__github__get_latest_release",
+    "mcp__github__get_me",
+    "mcp__github__get_release_by_tag",
+    "mcp__github__get_tag",
+    "mcp__github__get_team_members",
+    "mcp__github__get_teams",
+    "mcp__github__issue_read",
+    "mcp__github__issue_write",
+    "mcp__github__list_branches",
+    "mcp__github__list_commits",
+    "mcp__github__list_issue_types",
+    "mcp__github__list_issues",
+    "mcp__github__list_pull_requests",
+    "mcp__github__list_releases",
+    "mcp__github__list_tags",
+    "mcp__github__merge_pull_request",
+    "mcp__github__pull_request_read",
+    "mcp__github__pull_request_review_write",
+    "mcp__github__push_files",
+    "mcp__github__request_copilot_review",
+    "mcp__github__search_code",
+    "mcp__github__search_issues",
+    "mcp__github__search_pull_requests",
+    "mcp__github__search_repositories",
+    "mcp__github__search_users",
+    "mcp__github__sub_issue_write",
+    "mcp__github__update_pull_request",
+    "mcp__github__update_pull_request_branch"
+  ],
+  "enabledPlugins": {
+    "ruby-lsp@claude-plugins-official": true
+  }
+}
